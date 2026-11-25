@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آلة حاسبة بسيطة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 1000px;
+            background-color: #f0f2f5;
+            margin: 0;
+        }
+        .calculator {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            width: 280px;
+        }
+        #display {
+            width: 100%;
+            height: 50px;
+            font-size: 22px;
+            text-align: left;
+            padding: 5px 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            direction: ltr; /* لجعل كتابة المعادلة من اليسار لليمين بشكل صحيح */
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        button {
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            background-color: #e0e0e0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #d0d0d0;
+        }
+        button.operator {
+            background-color: #ff9500;
+            color: white;
+        }
+        button.operator:hover {
+            background-color: #e08500;
+        }
+        button.clear {
+            background-color: #ff3b30;
+            color: white;
+        }
+        button.clear:hover {
+            background-color: #d32f2f;
+        }
+
+        /* ====================== */
+
+        .btn {
+  width: 100%;
+  height: 48px;
+  background: linear-gradient(118deg, #d4af37, #e94560);
+  color: #1212d3;
+  opacity: 0.31;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 27px;
+  font-weight: 600;
+  letter-spacing: 1.3px;
+  border-radius: 50px;
+  border-width: 3px;
+  border-color: #1a1a2e;
+  border-style: solid;
+  padding: 28px 39px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-flex;
+  user-select: auto;
+  position: relative;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(118deg, #e94560, #e94560);
+  color: #ffffff;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+   
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+
+        <button class="dd" onclick="alettt('ali')"> click </button>
+        <!-- <button onclick="alettt('uuuuu')">CV</button> -->
+        <!-- <button class="btn" onclick="aaaa()">click</button> -->
+        <!-- <button onclick="alettt('ali')">connect</button> -->
+        <!-- <button onclick="alettt('ahmed')">انقر للضهور</button> -->
+        <!-- شاشة عرض النتيجة مع التمكن من الإدخال اليدوي والتحقق من الأحداث -->
+
+        
+        <!-- دالة حق الادخال  -->
+        <input type="text" id="display" onkeydown="handleKeyPress(event)"> 
+         
+        <!-- أزرار الآلة الحاسبة -->
+        <div class="buttons">
+            <button onclick="promett()">promet value</button>
+            <!-- <button onclick="alettt('aymen click')" >click hear</button> -->
+            <!-- الصف الأول -->
+            <button class="clear" onclick="clearDisplay()" style="grid-column: span 3;">C</button>
+            <button onclick="appendValue('/')" class="operator">÷</button>
+
+            <!-- الصف الثاني -->
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button onclick="appendValue('*')" class="operator">×</button>
+
+            <!-- الصف الثالث -->
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button onclick="appendValue('-')" class="operator">-</button>
+
+            <!-- الصف الرابع -->
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button onclick="appendValue('+')" class="operator">+</button>
+
+            <!-- الصف الخامس -->
+            <button onclick="appendValue('0')" style="grid-column: span 2;">0</button>
+            <button onclick="appendValue('.')">.</button>
+            <button onclick="calculateResult()" class="operator">=</button>
+        </div>
+    </div>
+
+
+</body>
+    <!-- ربط ملف JavaScript الخارجي -->
+    <script src="/math.JS"></script>
+
+</html>
