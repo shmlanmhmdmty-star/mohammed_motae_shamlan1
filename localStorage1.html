@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 - تطبيق LocalStorage</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Tahoma, Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a, #1e3a5f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 550px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .icon {
+            width: 75px;
+            height: 75px;
+            background: #e0f2fe;
+            color: #1e6091;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            font-size: 35px;
+        }
+
+        h2 {
+            color: #0f172a;
+            margin-bottom: 12px;
+            font-size: 24px;
+        }
+
+        .description {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .back-link {
+            display: block;
+            text-decoration: none;
+            color: #1e6091;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 25px;
+            background: #f0f9ff;
+            padding: 12px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: #e0f2fe;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        input {
+            flex: 1;
+            min-width: 0;
+            padding: 14px;
+            font-size: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #1e6091;
+            box-shadow: 0 0 0 3px rgba(30, 96, 145, 0.12);
+        }
+
+        button {
+            padding: 12px 18px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            background: #1e6091;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.08);
+        }
+
+        .add-btn {
+            background: #2563eb;
+        }
+
+        .clear-btn {
+            width: 100%;
+            margin-top: 15px;
+            background: #ef4444;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 25px;
+        }
+
+        li {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 13px;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            color: #334155;
+            word-break: break-word;
+        }
+
+        li span {
+            flex: 1;
+        }
+
+        li button {
+            padding: 8px 12px;
+            font-size: 12px;
+            background: #ef4444;
+            flex-shrink: 0;
+        }
+
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 12px;
+            margin-top: 25px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            .input-group button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <a href="index.html" class="back-link">
+            ← العودة إلى المحاضرة النظرية
+        </a>
+
+        <div class="header">
+            <div class="icon">📝</div>
+            <h2>قائمة مهام الطالب</h2>
+            <p class="description">
+                تطبيق عملي لتخزين المهام باستخدام LocalStorage.
+                أضف مهامك وسيتم الاحتفاظ بها حتى بعد إغلاق المتصفح.
+            </p>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="اكتب مهمة جديدة...">
+            <button class="add-btn" onclick="addTask()">+ إضافة</button>
+        </div>
+
+        <button class="clear-btn" onclick="clearAllTasks()">مسح جميع المهام</button>
+
+        <ul id="taskList"></ul>
+
+        <div class="footer">
+            تطبيق عملي رقم 1 | LocalStorage
+        </div>
+
+    </div>
+
+    <script>
+        const STORAGE_KEY = "student_tasks";
+
+        function getTasks() {
+            const data = localStorage.getItem(STORAGE_KEY);
+
+            if (data !== null) {
+                return JSON.parse(data);
+            } else {
+                return [];
+            }
+        }
+
+        function renderTasks() {
+            const tasks = getTasks();
+            const list = document.getElementById("taskList");
+            list.innerHTML = "";
+
+            for (let i = 0; i < tasks.length; i++) {
+                const task = tasks[i];
+                const li = document.createElement("li");
+
+                li.innerHTML = `
+                    <span>${task}</span>
+                    <button class="danger" onclick="deleteTask(${i})">حذف</button>
+                `;
+
+                list.appendChild(li);
+            }
+        }
+
+        function addTask() {
+            const input = document.getElementById("taskInput");
+            const text = input.value.trim();
+
+            if (!text) return;
+
+            const tasks = getTasks();
+            tasks.push(text);
+
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+
+            input.value = "";
+            renderTasks();
+        }
+
+        function deleteTask(index) {
+            const tasks = getTasks();
+            tasks.splice(index, 1);
+
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+            renderTasks();
+        }
+
+        function clearAllTasks() {
+            localStorage.removeItem(STORAGE_KEY);
+            renderTasks();
+        }
+
+        renderTasks();
+    </script>
+
+</body>
+
+</html>

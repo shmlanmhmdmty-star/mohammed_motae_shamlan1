@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2 - تطبيق SessionStorage</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Tahoma, Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a, #1e3a5f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 550px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .icon {
+            width: 75px;
+            height: 75px;
+            background: #ccfbf1;
+            color: #0f766e;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            font-size: 35px;
+        }
+
+        h2 {
+            color: #0f172a;
+            margin-bottom: 12px;
+            font-size: 24px;
+        }
+
+        p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .back-link {
+            display: block;
+            text-decoration: none;
+            color: #0f766e;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 25px;
+            background: #f0fdfa;
+            padding: 12px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: #ccfbf1;
+        }
+
+        .counter-box {
+            background: #f0fdfa;
+            border: 1px solid #99f6e4;
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .counter-box p {
+            margin: 0;
+            color: #334155;
+            font-weight: bold;
+        }
+
+        .badge {
+            background: #0f766e;
+            color: white;
+            padding: 9px 16px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .field-label {
+            display: block;
+            margin: 15px 0 8px;
+            color: #334155;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            outline: none;
+            transition: 0.3s;
+            font-family: Tahoma, Arial, sans-serif;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #0f766e;
+            box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .hint {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            padding: 12px;
+            border-radius: 10px;
+            color: #92400e;
+            font-size: 13px;
+            line-height: 1.8;
+            margin: 20px 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            background: #0f766e;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.08);
+        }
+
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 12px;
+            margin-top: 25px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <a href="index.html" class="back-link">
+            ← العودة إلى المحاضرة النظرية
+        </a>
+
+        <div class="header">
+            <div class="icon">⏳</div>
+            <h2>حفظ البيانات المؤقتة</h2>
+            <p>
+                تطبيق عملي لتخزين البيانات باستخدام SessionStorage،
+                حيث تبقى البيانات محفوظة داخل التبويب الحالي.
+            </p>
+        </div>
+
+        <div class="counter-box">
+            <p>عدد مرات تحديث هذا التبويب:</p>
+            <span class="badge" id="visitCounter">0</span>
+        </div>
+
+        <div class="hint">
+            اكتب بياناتك ثم حدّث الصفحة باستخدام F5 وستبقى البيانات محفوظة.
+            عند فتح تبويب جديد ستبدأ جلسة مستقلة.
+        </div>
+
+        <label class="field-label" for="fullName">الاسم الكامل</label>
+        <input type="text" id="fullName" oninput="saveDraft()" placeholder="أدخل اسمك الكامل">
+
+        <label class="field-label" for="notes">ملاحظات</label>
+        <textarea id="notes" rows="4" oninput="saveDraft()" placeholder="اكتب ملاحظاتك هنا..."></textarea>
+
+        <button onclick="submitForm()">إرسال النموذج ومسح الجلسة</button>
+
+        <div class="footer">
+            تطبيق عملي رقم 2 | SessionStorage
+        </div>
+
+    </div>
+
+    <script>
+        let savedCount = sessionStorage.getItem("tab_reloads");
+
+        let count;
+
+        if (savedCount === null) {
+            count = 0;
+        } else {
+            count = Number(savedCount);
+        }
+
+        count = count + 1;
+
+        sessionStorage.setItem("tab_reloads", count);
+
+        document.getElementById("visitCounter").textContent = count;
+
+        window.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("fullName").value = sessionStorage.getItem("draft_name") || "";
+            document.getElementById("notes").value = sessionStorage.getItem("draft_notes") || "";
+        });
+
+        function saveDraft() {
+            sessionStorage.setItem("draft_name", document.getElementById("fullName").value);
+            sessionStorage.setItem("draft_notes", document.getElementById("notes").value);
+        }
+
+        function submitForm() {
+            alert("تم إرسال البيانات بنجاح!");
+
+            sessionStorage.clear();
+
+            document.getElementById("fullName").value = "";
+            document.getElementById("notes").value = "";
+        }
+    </script>
+
+</body>
+
+</html>

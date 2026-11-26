@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 - تطبيق Cookies</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Tahoma, Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a, #1e3a5f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+            transition: 0.4s;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 580px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .icon {
+            width: 75px;
+            height: 75px;
+            background: #ede9fe;
+            color: #6a4c93;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            font-size: 35px;
+        }
+
+        h2 {
+            color: #0f172a;
+            margin-bottom: 12px;
+            font-size: 24px;
+        }
+
+        p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .back-link {
+            display: block;
+            text-decoration: none;
+            color: #6a4c93;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 25px;
+            background: #f5f3ff;
+            padding: 12px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: #ede9fe;
+        }
+
+        .info-box {
+            background: #f5f3ff;
+            border: 1px solid #ddd6fe;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            line-height: 1.9;
+        }
+
+        .info-box strong {
+            color: #6a4c93;
+        }
+
+        .field-label {
+            display: block;
+            margin: 15px 0 8px;
+            color: #334155;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+            font-size: 15px;
+            margin: 5px 0;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            outline: none;
+            background: #fff;
+            transition: 0.3s;
+            font-family: Tahoma, Arial, sans-serif;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #6a4c93;
+            box-shadow: 0 0 0 3px rgba(106, 76, 147, 0.12);
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 7px 0;
+            border: none;
+            border-radius: 10px;
+            background: #6a4c93;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.08);
+        }
+
+        button.secondary {
+            background: #0f766e;
+        }
+
+        button.danger {
+            background: #ef4444;
+        }
+
+        button.warning {
+            background: #d97706;
+        }
+
+        .output-title {
+            color: #334155;
+            margin-top: 25px;
+            font-size: 16px;
+        }
+
+        pre {
+            background: #0f172a;
+            color: #a8ff60;
+            padding: 18px;
+            border-radius: 12px;
+            overflow-x: auto;
+            direction: ltr;
+            text-align: left;
+            font-size: 13px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-break: break-word;
+            min-height: 80px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 12px;
+            margin-top: 25px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <a href="index.html" class="back-link">
+            ← العودة إلى المحاضرة النظرية
+        </a>
+
+        <div class="header">
+            <div class="icon">🍪</div>
+            <h2>تطبيق Cookies</h2>
+            <p>
+                تجربة عملية لحفظ تفضيلات المستخدم باستخدام
+                Cookies وتطبيق إعدادات الموقع.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <p>
+                <strong>مدة صلاحية الكوكي:</strong>
+                30 ثانية فقط، لتجربة انتهاء الصلاحية عملياً.
+            </p>
+        </div>
+
+        <label class="field-label" for="username">اسم المستخدم</label>
+        <input type="text" id="username" placeholder="أدخل اسم المستخدم">
+
+        <label class="field-label" for="themeSelect">اختيار المظهر</label>
+        <select id="themeSelect">
+            <option value="light">الوضع النهاري (Light)</option>
+            <option value="dark">الوضع الليلي (Dark)</option>
+        </select>
+
+        <button onclick="savePreferences()">
+            حفظ تفضيلات الكوكي
+        </button>
+
+        <button class="secondary" onclick="showCookies()">
+            تحديث عرض الكوكيز
+        </button>
+
+        <button class="danger" onclick="deleteCookies()">
+            حذف الكوكيز
+        </button>
+
+        <button class="warning" onclick="cookieRiskDemo()">
+            محاكاة خطر الكوكي
+        </button>
+
+        <h4 class="output-title">محتوى document.cookie الحالي:</h4>
+
+        <pre id="cookieOutput">لا توجد كوكيز محفوظة</pre>
+
+        <div class="footer">
+            تطبيق عملي رقم 3 | Cookies
+        </div>
+
+    </div>
+
+    <script>
+        function setCookie(name, value, maxAgeSeconds) {
+            document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; max-age=${maxAgeSeconds}; path=/`;
+        }
+
+        function getCookie(name) {
+            const cookies = document.cookie.split("; ");
+
+            for (let item of cookies) {
+                const [key, val] = item.split("=");
+
+                if (decodeURIComponent(key) === name) {
+                    return decodeURIComponent(val);
+                }
+            }
+
+            return null;
+        }
+
+        function savePreferences() {
+            const user = document.getElementById("username").value.trim() || "زائر";
+            const theme = document.getElementById("themeSelect").value;
+
+            setCookie("user_name", user, 30);
+            setCookie("site_theme", theme, 30);
+
+            applyTheme();
+            showCookies();
+        }
+
+        function deleteCookies() {
+            setCookie("user_name", "", 0);
+            setCookie("site_theme", "", 0);
+            setCookie("demo_track_info", "", 0);
+
+            applyTheme();
+            showCookies();
+        }
+
+        function applyTheme() {
+            const theme = getCookie("site_theme");
+
+            if (theme === "dark") {
+                document.body.style.background = "#222831";
+            } else {
+                document.body.style.background = "linear-gradient(135deg, #0f172a, #1e3a5f)";
+            }
+        }
+
+        function showCookies() {
+            const output = document.getElementById("cookieOutput");
+
+            if (document.cookie !== "") {
+                output.textContent = document.cookie;
+            } else {
+                output.textContent = "لا توجد كوكيز (إما لم تُحفظ أو انتهت مدتها)";
+            }
+        }
+
+        function cookieRiskDemo() {
+            const currentTime = new Date().toLocaleTimeString();
+            const screenSize = screen.width + "x" + screen.height;
+            const browserLang = navigator.language;
+            const pageUrl = window.location.href;
+
+            const infoValue =
+                "Time=" + currentTime +
+                " | Screen=" + screenSize +
+                " | Lang=" + browserLang +
+                " | URL=" + pageUrl;
+
+            setCookie("demo_track_info", infoValue, 30);
+
+            const output = document.getElementById("cookieOutput");
+
+            if (output !== null) {
+                output.textContent =
+                    document.cookie + "\n\n" +
+                    "- الوقت: " + currentTime + "\n" +
+                    "- مقاس الشاشة: " + screenSize + "\n" +
+                    "- لغة المتصفح: " + browserLang + "\n" +
+                    "- الرابط الحالي: " + pageUrl + "\n" +
+                    "- الرسالة: لا تقبل الكوكيز عشوائيًا في أي موقع؛ فالكوكي قد يُستغل في التتبع أو سرقة الجلسة إذا لم يُحمَ جيدًا.";
+            } else {
+                showCookies();
+            }
+        }
+
+        cookieRiskDemo();
+        applyTheme();
+        showCookies();
+    </script>
+
+</body>
+
+</html>

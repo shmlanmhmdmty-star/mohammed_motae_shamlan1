@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4 - تطبيق jQuery</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Tahoma, Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a, #1e3a5f);
+            padding: 25px;
+            color: #334155;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .icon {
+            width: 80px;
+            height: 80px;
+            background: #dbeafe;
+            color: #0769ad;
+            border-radius: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            font-size: 35px;
+        }
+
+        h1 {
+            color: #0f172a;
+            font-size: 27px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .back-link {
+            display: block;
+            text-decoration: none;
+            color: #0769ad;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 25px;
+            background: #eff6ff;
+            padding: 12px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: #dbeafe;
+        }
+
+        .section {
+            background: #f8fafc;
+            padding: 22px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+            border-right: 5px solid #0769ad;
+        }
+
+        .section h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #0769ad;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .section p {
+            line-height: 1.9;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 11px 15px;
+            font-size: 13px;
+            margin: 5px 3px;
+            border: none;
+            border-radius: 10px;
+            background: #0769ad;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.08);
+        }
+
+        button.secondary {
+            background: #0f766e;
+        }
+
+        button.danger {
+            background: #ef4444;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            max-width: 350px;
+            padding: 13px;
+            font-size: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #0769ad;
+            box-shadow: 0 0 0 3px rgba(7, 105, 173, 0.12);
+        }
+
+        .box {
+            margin-top: 15px;
+            padding: 18px;
+            background: #e0f2fe;
+            border: 1px dashed #0769ad;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: bold;
+            color: #075985;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: #ffe066 !important;
+            color: #000 !important;
+            border: 2px solid #f59f00 !important;
+            transform: scale(1.02);
+        }
+
+        ul {
+            padding-right: 0;
+            margin-top: 20px;
+            list-style: none;
+        }
+
+        li {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        li span {
+            flex: 1;
+            word-break: break-word;
+        }
+
+        li button {
+            flex-shrink: 0;
+        }
+
+        code {
+            background: #e2e8f0;
+            color: #0f172a;
+            padding: 4px 7px;
+            border-radius: 6px;
+            direction: ltr;
+            display: inline-block;
+            font-size: 12px;
+        }
+
+        .preview {
+            margin-top: 15px;
+            background: #e0f2fe;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #bae6fd;
+        }
+
+        .preview strong {
+            color: #075985;
+        }
+
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 12px;
+            margin-top: 25px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .section {
+                padding: 17px;
+            }
+
+            .section h3 {
+                font-size: 16px;
+            }
+
+            button {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            input[type="text"] {
+                max-width: 100%;
+            }
+
+            li button {
+                width: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="card">
+
+            <a href="index.html" class="back-link">
+                ← العودة إلى المحاضرة النظرية
+            </a>
+
+            <div class="header">
+                <div class="icon">⚡</div>
+                <h1>أساسيات مكتبة jQuery</h1>
+                <p class="subtitle">
+                    تطبيق عملي على المحددات والأحداث والدوال والتأثيرات البصرية
+                    والتعامل مع عناصر الصفحة.
+                </p>
+            </div>
+
+            <div class="section">
+                <h3>
+                    1. المحددات وتغيير النصوص والتنسيق
+                    (<code>text</code>, <code>html</code>, <code>css</code>, <code>addClass</code>)
+                </h3>
+
+                <p id="demoText">
+                    هذا نص تجريبي يمكن تغييره أو تنسيقه بسطر واحد في jQuery.
+                </p>
+
+                <button id="btnChangeText">تغيير النص (.text)</button>
+
+                <button id="btnChangeHtml">
+                    إضافة HTML (.html)
+                </button>
+
+                <button id="btnToggleClass" class="secondary">
+                    تبديل التنسيق (.toggleClass)
+                </button>
+
+                <button id="btnCss" class="danger">
+                    تغيير اللون (.css)
+                </button>
+            </div>
+
+            <div class="section">
+                <h3>
+                    2. دوال التأثيرات البصرية
+                    (<code>hide</code>, <code>show</code>, <code>fadeToggle</code>, <code>slideToggle</code>)
+                </h3>
+
+                <button id="btnHide">إخفاء (.hide)</button>
+
+                <button id="btnShow">إظهار (.show)</button>
+
+                <button id="btnFade" class="secondary">
+                    تلاشي (.fadeToggle)
+                </button>
+
+                <button id="btnSlide" class="secondary">
+                    انزلاق (.slideToggle)
+                </button>
+
+                <div id="effectBox" class="box">
+                    صندوق التأثيرات — راقب كيف يتفاعل مع دوال jQuery!
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>
+                    3. الأحداث التفاعلية مع حقول الإدخال
+                    (<code>keyup</code>, <code>focus</code>, <code>blur</code>, <code>val</code>)
+                </h3>
+
+                <input type="text" id="liveInput" placeholder="اكتب اسمك هنا...">
+
+                <div class="preview">
+                    المعاينة الفورية:
+                    <strong id="livePreview">---</strong>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>
+                    4. إضافة وحذف العناصر ديناميكيًا
+                    (<code>append</code>, <code>on</code>, <code>remove</code>)
+                </h3>
+
+                <input type="text" id="studentItem" placeholder="أدخل اسم طالب جديد...">
+
+                <button id="btnAddStudent">
+                    إضافة للقائمة (.append)
+                </button>
+
+                <ul id="studentsList">
+                    <li>
+                        <span>أحمد علي</span>
+                        <button class="danger delete-btn">حذف</button>
+                    </li>
+
+                    <li>
+                        <span>سارة محمد</span>
+                        <button class="danger delete-btn">حذف</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer">
+                تطبيق عملي رقم 4 | jQuery Basics
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#btnChangeText").click(function () {
+                $("#demoText").text("تم تغيير النص بنجاح باستخدام دالة .text()!");
+            });
+
+            $("#btnChangeHtml").click(function () {
+                $("#demoText").html("تم إدراج <u>تنسيق HTML</u> و <strong>نص عريض</strong> باستخدام .html()!");
+            });
+
+            $("#btnToggleClass").click(function () {
+                $("#demoText").toggleClass("highlight");
+            });
+
+            $("#btnCss").click(function () {
+                $("#demoText").css({
+                    "color": "#c1121f",
+                    "font-size": "18px",
+                    "font-weight": "bold"
+                });
+            });
+
+            $("#btnHide").click(function () {
+                $("#effectBox").hide(400);
+            });
+
+            $("#btnShow").click(function () {
+                $("#effectBox").show(400);
+            });
+
+            $("#btnFade").click(function () {
+                $("#effectBox").fadeToggle(500);
+            });
+
+            $("#btnSlide").click(function () {
+                $("#effectBox").slideToggle(500);
+            });
+
+            $("#liveInput").on("keyup", function () {
+                let value = $(this).val();
+
+                if (value !== "") {
+                    $("#livePreview").text(value);
+                } else {
+                    $("#livePreview").text("---");
+                }
+            });
+
+            $("#liveInput").focus(function () {
+                $(this).css("background-color", "#fff9db");
+            });
+
+            $("#liveInput").blur(function () {
+                $(this).css("background-color", "#ffffff");
+            });
+
+            $("#btnAddStudent").click(function () {
+                let name = $("#studentItem").val().trim();
+
+                if (name === "") {
+                    return;
+                }
+
+                $("#studentsList").append(
+                    "<li><span>" + name + "</span> <button class='danger delete-btn'>حذف</button></li>"
+                );
+
+                $("#studentItem").val("");
+            });
+
+            $("#studentsList").on("click", ".delete-btn", function () {
+                $(this).parent().fadeOut(300, function () {
+                    $(this).remove();
+                });
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

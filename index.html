@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معمل الويب 3 | تخزين البيانات و jQuery</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Simplified Arabic', 'Traditional Arabic', Tahoma, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.9;
+            color: #334155;
+            background: linear-gradient(135deg, #0f172a, #1e3a5f);
+            margin: 0;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        .header-academic {
+            text-align: center;
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #1e3a5f;
+        }
+
+        .header-icon {
+            width: 85px;
+            height: 85px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            border-radius: 24px;
+            background: #dbeafe;
+            color: #1e3a5f;
+            font-size: 38px;
+        }
+
+        .university-title {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+
+        .course-title {
+            font-size: 27px;
+            color: #0f172a;
+            font-weight: bold;
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        .lab-title {
+            font-size: 19px;
+            color: #2563eb;
+            font-weight: bold;
+            line-height: 1.9;
+        }
+
+        .intro-paragraph {
+            margin-bottom: 30px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-right: 5px solid #1e3a5f;
+            padding: 22px;
+            border-radius: 14px;
+            color: #475569;
+            line-height: 2;
+            text-align: justify;
+        }
+
+        .intro-paragraph strong {
+            color: #0f172a;
+        }
+
+        .modules-list {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .module-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 25px;
+            background: #ffffff;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .module-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .module-card.c1 {
+            border-right: 6px solid #1a365d;
+        }
+
+        .module-card.c2 {
+            border-right: 6px solid #234e52;
+        }
+
+        .module-card.c3 {
+            border-right: 6px solid #553c9a;
+        }
+
+        .module-card.c4 {
+            border-right: 6px solid #0769ad;
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .module-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+            color: #0f172a;
+            line-height: 1.8;
+        }
+
+        .module-badge {
+            font-size: 12px;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 6px 12px;
+            border-radius: 20px;
+            color: #475569;
+            white-space: nowrap;
+        }
+
+        .module-desc {
+            font-size: 15px;
+            color: #64748b;
+            margin-bottom: 20px;
+            text-align: justify;
+            line-height: 2;
+        }
+
+        .module-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-theory,
+        .btn-practical {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            padding: 12px 18px;
+            font-size: 14px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .btn-theory {
+            background: #1a365d;
+            color: #ffffff;
+        }
+
+        .btn-theory:hover {
+            filter: brightness(1.15);
+            transform: translateY(-2px);
+        }
+
+        .btn-practical {
+            background: #ffffff;
+            color: #1a365d;
+            border: 1px solid #1a365d;
+        }
+
+        .btn-practical:hover {
+            background: #eff6ff;
+            transform: translateY(-2px);
+        }
+
+        .footer-academic {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 2;
+        }
+
+        .footer-badge {
+            display: inline-block;
+            background: #f1f5f9;
+            color: #475569;
+            padding: 8px 14px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 22px;
+                border-radius: 18px;
+            }
+
+            .course-title {
+                font-size: 22px;
+            }
+
+            .lab-title {
+                font-size: 17px;
+            }
+
+            .module-title {
+                font-size: 17px;
+            }
+
+            .module-card {
+                padding: 20px;
+            }
+
+            .module-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .module-actions {
+                flex-direction: column;
+            }
+
+            .btn-theory,
+            .btn-practical {
+                width: 100%;
+            }
+
+            .intro-paragraph {
+                text-align: right;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 16px;
+            }
+
+            .course-title {
+                font-size: 20px;
+            }
+
+            .module-card {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header-academic">
+            <div class="header-icon">🎓</div>
+
+            <div class="university-title">
+                جامعة العلوم والتكنولوجيا | قسم تقنية المعلومات وحوسبة الويب
+            </div>
+
+            <div class="course-title">
+                مقرر: تقنيات وتطوير تطبيقات الويب (Web Technologies)
+            </div>
+
+            <div class="lab-title">
+                المعمل الثالث: معمارية حفظ الحالة (Web Storage & Cookies)
+                وأساسيات مكتبة (jQuery)
+            </div>
+        </div>
+
+        <div class="intro-paragraph">
+            <strong>دليل دراسة المعمل:</strong>
+            تم إعداد المحتوى الأكاديمي والعملي لهذا المعمل وفق منهجية تعليمية رصينة؛
+            حيث تشتمل كل وحدة على
+            <strong>محاضرة نظرية تفصيلية مقسمة إلى 4 صفحات</strong>
+            تشرح المفاهيم المعمارية، وتبادل الترويسات، والأمن البرمجي،
+            مدعومة بأمثلة واقعية. وفي نهاية كل محاضرة يوجد زر مباشر للانتقال إلى
+            <strong>الواجهة التطبيقية التفاعلية</strong>
+            لتطبيق المهارات المكتسبة عملياً.
+        </div>
+
+        <div class="modules-list">
+
+            <div class="module-card c1">
+
+                <div class="module-header">
+                    <h3 class="module-title">
+                        1. التخزين المحلي الدائم (localStorage API)
+                    </h3>
+
+                    <span class="module-badge">
+                        المجلد: /localstorage
+                    </span>
+                </div>
+
+                <div class="module-desc">
+                    دراسة التخزين الدائم على جانب العميل، حل مشكلة بروتوكول HTTP
+                    عديم الحالة، سعة التخزين (5-10MB)، الدوال الأربع (CRUD)،
+                    التسلسل عبر JSON، والاعتبارات الأمنية لحماية التطبيق من ثغرات XSS.
+                </div>
+
+                <div class="module-actions">
+                    <a href="localstorage/index.html" class="btn-theory">
+                        بدء المحاضرة النظرية (4 صفحات) ➔
+                    </a>
+
+                    <a href="localstorage/01_localstorage.html" class="btn-practical">
+                        التطبيق العملي المباشر: قائمة مهام الطالب
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="module-card c2">
+
+                <div class="module-header">
+                    <h3 class="module-title">
+                        2. تخزين بيانات الجلسة المؤقتة (sessionStorage API)
+                    </h3>
+
+                    <span class="module-badge">
+                        المجلد: /ssesion
+                    </span>
+                </div>
+
+                <div class="module-desc">
+                    دراسة معمارية الجلسة المرتبطة بتبويب المتصفح الواحد
+                    (Tab-Isolated Context)، سلوك الصمود عند التحديث (F5)
+                    والمحو التلقائي عند إغلاق التبويب، وتطبيقات النماذج متعددة
+                    الخطوات ومسودات الأمان المؤقتة.
+                </div>
+
+                <div class="module-actions">
+                    <a href="ssesion/index.html" class="btn-theory" style="background-color: #234e52;">
+                        بدء المحاضرة النظرية (4 صفحات) ➔
+                    </a>
+
+                    <a href="ssesion/02_sessionstorage.html" class="btn-practical" style="color: #234e52; border-color: #234e52;">
+                        التطبيق العملي المباشر: حفظ المسودة المؤقتة
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="module-card c3">
+
+                <div class="module-header">
+                    <h3 class="module-title">
+                        3. معمارية ملفات تعريف الارتباط (HTTP Cookies)
+                    </h3>
+
+                    <span class="module-badge">
+                        المجلد: /cookies
+                    </span>
+                </div>
+
+                <div class="module-desc">
+                    النشأة التاريخية عام 1994، تبادل الترويسات الشبكية
+                    (Set-Cookie و Cookie Headers)، سعة 4KB، خصائص التحكم بالعمر
+                    الزمني (Max-Age و Expires)، رايات الأمان العظمى
+                    (HttpOnly, Secure, SameSite)، واستراتيجيات الإلغاء والحذف البرمجي.
+                </div>
+
+                <div class="module-actions">
+                    <a href="cookies/index.html" class="btn-theory" style="background-color: #553c9a;">
+                        بدء المحاضرة النظرية (4 صفحات) ➔
+                    </a>
+
+                    <a href="cookies/cookes.html" class="btn-practical" style="color: #553c9a; border-color: #553c9a;">
+                        التطبيق العملي المباشر: تفضيلات المستخدم بعمر زمني
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="module-card c4">
+
+                <div class="module-header">
+                    <h3 class="module-title">
+                        4. أساسيات ومعمارية مكتبة (jQuery Fundamentals)
+                    </h3>
+
+                    <span class="module-badge">
+                        المجلد: /jquery
+                    </span>
+                </div>
+
+                <div class="module-desc">
+                    نشأة المكتبة عام 2006 لحل كابوس توافق المتصفحات،
+                    القاعدة الذهبية $(selector).action()، كائن التغليف
+                    (Wrapper Object)، حدث $(document).ready()، دوال التلاعب
+                    بالمحتوى والأنماط، محرك التأثيرات والانتقالات،
+                    وتفويض الأحداث (Event Delegation) للعناصر الديناميكية.
+                </div>
+
+                <div class="module-actions">
+                    <a href="jquery/index.html" class="btn-theory" style="background-color: #0769ad;">
+                        بدء المحاضرة النظرية (4 صفحات) ➔
+                    </a>
+
+                    <a href="jquery/04_jquery_basics.html" class="btn-practical" style="color: #0769ad; border-color: #0769ad;">
+                        التطبيق العملي المباشر: معمل jQuery التفاعلي
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer-academic">
+            تم إعداد وتطوير المحاضرات والواجهات العملية وفق المعايير الأكاديمية الرسمية لمقرر تطوير تطبيقات الويب.
+
+            <div class="footer-badge">
+                Web Technologies | Laboratory 03
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
