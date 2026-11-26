@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Interactive Page</title>
+
+    <link rel="stylesheet" href="">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #101827, #1e293b, #334155);
+            margin: 0;
+            padding: 30px 15px;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: auto;
+        }
+
+        .header {
+            padding: 25px;
+            margin-bottom: 25px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+        }
+
+        .header h1 {
+            color: #38bdf8;
+            font-size: 30px;
+        }
+
+        .header p {
+            color: #cbd5e1;
+            font-size: 17px;
+        }
+
+        .main-wrapper {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .box {
+            background: #f8fafc;
+            color: #1e293b;
+            width: 350px;
+            max-width: 100%;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            transition: 0.3s;
+        }
+
+        .box:hover {
+            transform: translateY(-5px);
+        }
+
+        .box h2 {
+            color: #0f766e;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #0f766e;
+            color: white;
+            border: none;
+            padding: 13px 18px;
+            margin: 8px;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #14b8a6;
+            transform: scale(1.04);
+        }
+
+        .blue-btn {
+            background: #2563eb;
+        }
+
+        .blue-btn:hover {
+            background: #60a5fa;
+        }
+
+        .orange-btn {
+            background: #ea580c;
+        }
+
+        .orange-btn:hover {
+            background: #fb923c;
+        }
+
+        .purple-btn {
+            background: #7c3aed;
+        }
+
+        .purple-btn:hover {
+            background: #a78bfa;
+        }
+
+        #myBox {
+            background: #e0f2fe;
+            color: #075985;
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #sweetsContainer {
+            display: none;
+            background: #fff7ed;
+            color: #7c2d12;
+        }
+
+        #sweetsContainer h2 {
+            color: #c2410c;
+        }
+
+        #sweetsContainer ul {
+            text-align: right;
+            padding-right: 30px;
+            line-height: 2.5;
+            font-size: 18px;
+        }
+
+        .footer {
+            margin-top: 35px;
+            padding: 15px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+
+<body dir="rtl">
+
+    <div class="container">
+
+        <div class="header">
+            <h1>JavaScript Interactive Page</h1>
+            <p>تطبيق عملي على الدوال والتعامل مع عناصر الصفحة</p>
+        </div>
+
+        <div class="main-wrapper">
+
+            <div class="box">
+                <h2>لوحة التحكم</h2>
+
+                <button onclick="square()" class="blue-btn">
+                    إظهار التربيع
+                </button>
+
+                <button onclick="showDate()" class="purple-btn">
+                    إظهار التاريخ
+                </button>
+
+                <button onclick="addNewElement()" class="orange-btn">
+                    إضافة عنصر نصي
+                </button>
+
+                <p id="myBox">النص الأصلي</p>
+            </div>
+
+            <div class="box" id="sweetsContainer">
+                <h2>قائمة أصناف الحلويات</h2>
+
+                <ul>
+                    <li>كنافة بالقشطة</li>
+                    <li>بقلاوة بالفستق</li>
+                    <li>بسبوسة</li>
+                    <li>تشيز كيك</li>
+                    <li>أم علي</li>
+                </ul>
+
+                <button onclick="hideMenu()" class="orange-btn">
+                    إخفاء القائمة
+                </button>
+            </div>
+
+            <div class="box">
+                <h2>قائمة الحلويات</h2>
+                <p>اضغط على الزر لعرض قائمة الأصناف.</p>
+
+                <button onclick="showMenu()">
+                    إظهار قائمة الأصناف
+                </button>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            تطبيق عملي باستخدام HTML و CSS و JavaScript
+        </div>
+
+    </div>
+
+    <script src="JavaScript_Interactive_Page.js"></script>
+
+</body>
+</html>
